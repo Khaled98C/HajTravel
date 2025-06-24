@@ -19,7 +19,7 @@ class ButtonSingup extends GetView<ControllerSingup> {
       child: SpringButton(
         SpringButtonType.OnlyScale,
         row(
-       "انشاء حساب",
+      '20'.tr,
           Color(0xffa53ff9),
         ),
         onTapDown: (_) {

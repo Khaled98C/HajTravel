@@ -57,6 +57,7 @@ class UserInfo extends StatelessWidget {
                         children: [
                           buildInfoCard(Icons.email, "البريد الإلكتروني", controller.email, isWideScreen),
                           buildInfoCard(Icons.male, "الجنس", controller.gender, isWideScreen),
+                           buildInfoCard(Icons.male, "الجنسية", controller.country, isWideScreen),
                        //   buildInfoCard(Icons.cake, "العمر", controller.age.toString(), isWideScreen),
                         ],
                       ),

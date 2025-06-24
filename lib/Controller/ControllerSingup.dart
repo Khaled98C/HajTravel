@@ -21,6 +21,7 @@ class ControllerSingup extends GetxController {
   late TextEditingController password;
   late TextEditingController email;
   late TextEditingController birthday;
+
   late BuildContext context;
   checktime() async {
     dateTime =
@@ -60,6 +61,8 @@ class ControllerSingup extends GetxController {
   bool pass = true;
 
   var selectedValue = 'Male';
+  String selectcountry='Syrian';
+    final List<String> countryItems = ['Syrian', 'Egyptian','Lebanese','Jordanian'];
   final List<String> genderItems = ['Male', 'Female'];
   adduser() async {
     if (formstate.currentState!.validate()) {
@@ -95,6 +98,7 @@ class ControllerSingup extends GetxController {
       myServices.sharedPref.setString("gender", selectedValue);
       myServices.sharedPref.setString("email", email.text);
       myServices.sharedPref.setString("birthday", birthday.toString());
+      myServices.sharedPref.setString("country",selectcountry);
       successlogin();
       await Future.delayed(Duration(seconds: 2));
 
@@ -169,7 +173,7 @@ class ControllerSingup extends GetxController {
       //icon: Lottie.asset("lot/t.json"),
       duration: Duration(seconds: 3),
       messageText: Text(
-        "تم انشاء الحساب بنجاح ",
+        "32".tr,
         style: TextStyle(fontSize: 20, color: Colors.black),
       ),
     );

@@ -28,13 +28,13 @@ class BookingController extends GetxController {
   Future<void> addTrip(TabBarModel trip) async {
     bookedTrips.add(trip);
     await saveTrips();
-    Get.snackbar("تم الحجز", "${trip.title} تمت إضافتها بنجاح");
+    Get.snackbar("66".tr, "${trip.title} ${"67".tr}");
   }
 
   Future<void> removeTrip(TabBarModel trip) async {
     bookedTrips.remove(trip);
     await saveTrips();
-    Get.snackbar("تم الحذف", "${trip.title} تم حذفها بنجاح");
+    Get.snackbar("68".tr, "${trip.title} ${"69".tr}");
   }
 
   Future<void> saveTrips() async {

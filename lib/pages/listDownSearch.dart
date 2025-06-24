@@ -24,7 +24,7 @@ class ListDownSearch extends GetView<HomeController> {
                           controller: controller.tabController,
                           children: [
                             TabViewChild(
-                              list: places,
+                              list: tabBarData,
                             ),
                             //TabViewChild(list: inspiration),
                           //  TabViewChild(list: popular),

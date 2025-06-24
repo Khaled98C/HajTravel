@@ -21,7 +21,7 @@ class MiddleAppText extends StatelessWidget {
           AppText(
             text: text,
             size: 19,
-            color: Colors.black,
+           
             fontWeight: FontWeight.w500,
           ),
          

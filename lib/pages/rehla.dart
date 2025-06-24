@@ -38,8 +38,17 @@ class _RehlaState extends State<Rehla> {
       splitScreenMode: true,
       builder: (context, child) {
         return SafeArea(
-          child: Scaffold(
-            backgroundColor: const Color.fromARGB(255, 243, 243, 243),
+          child: Scaffold( 
+            appBar: AppBar(
+               backgroundColor: Colors.white,
+              elevation: 0,
+              leading: IconButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: Icon(Icons.arrow_back)),
+            ),
+   //         backgroundColor: const Color.fromARGB(255, 243, 243, 243),
             body: SizedBox(
               width: size.width,
               height: size.height,
@@ -83,7 +92,7 @@ class _RehlaState extends State<Rehla> {
                                               child: AppText(
                                                 text: current.title,
                                                 size: 25.sp,
-                                                color: Colors.red,
+                                               
                                                 fontWeight: FontWeight.w500,
                                               ),
                                             ),
@@ -102,7 +111,7 @@ class _RehlaState extends State<Rehla> {
                                                   child: AppText(
                                                     text: current.description,
                                                     size: 17.sp,
-                                                    color: Colors.grey,
+                                                   
                                                     fontWeight: FontWeight.w200,
                                                   ),
                                                 ),

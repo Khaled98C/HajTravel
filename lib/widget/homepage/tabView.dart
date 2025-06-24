@@ -26,7 +26,7 @@ class TabViewChild extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               Get.to(DetailsPage(
-                personData: null,
+               
                 tabData: current,
                 isCameFromPersonSection: false,
               ));
@@ -80,7 +80,7 @@ class TabViewChild extends StatelessWidget {
                       child: AppText(
                         text: current.title,
                         size: 15,
-                        color: Colors.white,
+                     
                         fontWeight: FontWeight.w400,
                       ),
                     ),
@@ -101,7 +101,7 @@ class TabViewChild extends StatelessWidget {
                         AppText(
                           text: current.location,
                           size: 12,
-                          color: Colors.white,
+                   
                           fontWeight: FontWeight.w400,
                         ),
                       ],

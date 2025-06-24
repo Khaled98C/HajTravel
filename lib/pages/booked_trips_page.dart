@@ -10,10 +10,10 @@ class BookedTripsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("الرحلات المحجوزة")),
+      appBar: AppBar(title: Text("21".tr)),
       body: Obx(() {
         if (controller.bookedTrips.isEmpty) {
-          return Center(child: Text("لا توجد رحلات محجوزة بعد"));
+          return Center(child: Text("22".tr));
         }
         return ListView.builder(
           itemCount: controller.bookedTrips.length,

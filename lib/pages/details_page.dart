@@ -2,305 +2,327 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project/pages/booked_trips_page.dart';
- 
+
 import '../Controller/booking_controller.dart';
-import '../models/people_also_like_model.dart';
 import '../models/tab_bar_model.dart';
 import '../widget/reuseable_text.dart';
 
 class DetailsPage extends StatefulWidget {
-  const DetailsPage({super.key, 
-    
+  const DetailsPage({
+    super.key,
     required this.tabData,
-    required this.personData,
-    required this.isCameFromPersonSection, 
+    required this.isCameFromPersonSection,
   });
 
   final TabBarModel? tabData;
-  final PeopleAlsoLikeModel? personData;
   final bool isCameFromPersonSection;
- 
+
   @override
   State<DetailsPage> createState() => _DetailsPageState();
 }
 
 class _DetailsPageState extends State<DetailsPage> {
   int selected = 0;
-  final EdgeInsetsGeometry padding =
-      const EdgeInsets.symmetric(horizontal: 20.0);
   dynamic current;
 
-  onFirstLoaded() {
-    if (widget.tabData == null) {
-      return current = widget.personData;
-    } else {
-      return current = widget.tabData;
+  @override
+  void initState() {
+    super.initState();
+    if (widget.tabData != null) {
+      current = widget.tabData;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    onFirstLoaded();
-    return Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: _buildAppBar(),
-        body: SizedBox(
-          width: size.width,
-          height: size.height,
-          child: Stack(
+    final bookingController = Get.put(BookingController());
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        double width = constraints.maxWidth;
+        double height = constraints.maxHeight;
+
+        return Scaffold(
+          extendBodyBehindAppBar: true,
+          appBar: _buildAppBar(),
+          body: Stack(
             children: [
+              // Image at the top
               Positioned(
-                left: 0,
                 top: 0,
+                left: 0,
                 right: 0,
                 child: Hero(
                   tag: widget.isCameFromPersonSection
                       ? current.day
                       : current.image,
                   child: Container(
-                    width: size.width,
-                    height: size.height * 0.45,
+                    width: width,
+                    height: height * 0.45,
                     decoration: BoxDecoration(
-                        image: DecorationImage(
-                      image: AssetImage(current?.image),
-                      fit: BoxFit.cover,
-                    )),
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30),
+                      ),
+                      image: DecorationImage(
+                        image: AssetImage(current.image),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
               ),
+              // Content container
               Positioned(
-                left: 0,
                 bottom: 0,
+                left: 0,
                 right: 0,
                 child: Container(
-                  padding: padding,
-                  width: size.width,
-                  height: size.height * 0.65,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  width: width,
+                  height: height * 0.65,
                   decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30),
-                      )),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      FadeInUp(
-                        delay: const Duration(milliseconds: 200),
-                        child: Padding(
-                          padding: EdgeInsets.only(top: size.height * 0.02),
+                    color: Colors.white38,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: height * 0.02),
+                        FadeInUp(
+                          delay: const Duration(milliseconds: 200),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  AppText(
-                                    text: current.title,
-                                    size: 28,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w500,
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.5,
+                                    child: AppText(
+                                      text: current.title,
+                                      size: width * 0.05,
+                                      fontWeight: FontWeight.normal,
+                                    ),
                                   ),
                                   Row(
                                     children: [
-                                      const Icon(
-                                        Icons.location_on,
-                                        color: Colors.black54,
-                                        size: 15,
-                                      ),
-                                      SizedBox(
-                                        width: size.width * 0.01,
-                                      ),
+                                      const Icon(Icons.location_on,
+                                          color: Colors.black54, size: 15),
+                                      SizedBox(width: width * 0.01),
                                       AppText(
                                         text: current.location,
-                                        size: 12,
-                                        color: Colors.black54,
+                                        size: width * 0.03,
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ],
                                   ),
                                 ],
                               ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: height * 0.02),
+                        FadeInUp(
+                          delay: const Duration(milliseconds: 300),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Wrap(
+                                children: List.generate(
+                                    5,
+                                    (index) => Icon(
+                                          index < 4
+                                              ? Icons.star
+                                              : Icons.star_border,
+                                          color: index < 4
+                                              ? Colors.amber
+                                              : Colors.grey,
+                                          size: width * 0.06,
+                                        )),
+                              ),
                               AppText(
-                                text: "\$${(selected + 1) * current.price}",
-
-                                size: 25,
-                                color: Colors.black54,
+                                text: current.duration,
+                                size: width * 0.035,
                                 fontWeight: FontWeight.w500,
+                              ),
+                              Text("60".tr),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  AppText(
+                                    text: "59".tr,
+                                    size: 15,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                  AppText(
+                                    text: "\$${(selected + 1) * current.price}",
+                                    size: width * 0.05,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ],
                               ),
                             ],
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.02,
-                      ),
-                      FadeInUp(
-                        delay: const Duration(milliseconds: 300),
-                        child: Row(
-                          children: [
-                            Wrap(
-                              children: List.generate(5, (index) {
-                                return Icon(
-                                  index < 4 ? Icons.star : Icons.star_border,
-                                  color: index < 4 ? Colors.amber : Colors.grey,
-                                );
-                              }),
+                        SizedBox(height: height * 0.03),
+                        FadeInUp(
+                          delay: const Duration(milliseconds: 400),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                const Icon(Icons.airplanemode_on_outlined,
+                                    color: Colors.black54),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                AppText(
+                                    text: current.airline,
+                                    size: width * 0.035,
+                                    fontWeight: FontWeight.w500),
+                                const SizedBox(width: 25),
+                                AppText(
+                                    text: current.to,
+                                    size: width * 0.03,
+                                    fontWeight: FontWeight.w500),
+                                const SizedBox(width: 15),
+                                Text("61".tr),
+                                const SizedBox(width: 15),
+                                AppText(
+                                    text: current.from,
+                                    size: width * 0.03,
+                                    fontWeight: FontWeight.w500),
+                                Text('62'.tr),
+                                const SizedBox(width: 10),
+                              ],
                             ),
-                            SizedBox(
-                              width: size.width * 0.01,
-                            ),
-                            const AppText(
-                              text: "(4.0)",
-                              size: 15,
-                              color: Colors.black54,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                      SizedBox(height: size.height * 0.03),
-                      FadeInUp(
-                        delay: const Duration(milliseconds: 400),
-                        child: const AppText(
-                          text: "People",
-                          size: 24,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
+                        SizedBox(height: height * 0.02),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AppText(
+                                  text: current.date,
+                                  size: width * 0.03,
+                                  fontWeight: FontWeight.w500),
+                              Text('46'.tr),
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(height: size.height * 0.002),
-                      FadeInUp(
-                        delay: const Duration(milliseconds: 500),
-                        child: const AppText(
-                          text: "Number of people in your group",
-                          size: 14,
-                          color: Colors.black54,
+                        SizedBox(height: height * 0.02),
+                        AppText(
+                          text: '63'.tr,
+                          size: width * 0.035,
                           fontWeight: FontWeight.w400,
                         ),
-                      ),
-                      FadeInUp(
-                        delay: const Duration(milliseconds: 600),
-                        child: Container(
-                          margin: EdgeInsets.only(top: size.height * 0.01),
-                          width: size.width * 0.9,
-                          height: size.height * 0.08,
+                        SizedBox(
+                          height: height * 0.08,
                           child: ListView.builder(
-                              physics: const BouncingScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              itemCount: 7,
-                              itemBuilder: (ctx, index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      selected = index;
-                                 print( "selected is $selected");
-                                    });
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: AnimatedContainer(
-                                      width: size.width * 0.12,
-                                      decoration: BoxDecoration(
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 7,
+                            itemBuilder: (ctx, index) => GestureDetector(
+                              onTap: () => setState(() => selected = index),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: AnimatedContainer(
+                                  width: width * 0.12,
+                                  duration: const Duration(milliseconds: 200),
+                                  decoration: BoxDecoration(
+                                    color: selected == index
+                                        ? Colors.black
+                                        : const Color(0xFFF5F5F5),
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "${index + 1}",
+                                      style: TextStyle(
+                                        fontSize: width * 0.045,
+                                        fontWeight: FontWeight.w500,
                                         color: selected == index
-                                            ? Colors.black
-                                            : const Color.fromARGB(
-                                                255, 245, 245, 245),
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      duration:
-                                          const Duration(milliseconds: 200),
-                                      child: Center(
-                                        child: Text(
-                                          "${index + 1}",
-                                          style: TextStyle(
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.w500,
-                                              color: selected == index
-                                                  ? Colors.white
-                                                  : Colors.black),
-                                        ),
+                                            ? Colors.white
+                                            : Colors.black,
                                       ),
                                     ),
                                   ),
-                                );
-                              }),
-                        ),
-                      ),
-                      SizedBox(height: size.height * 0.02),
-                      FadeInUp(
-                        delay: const Duration(milliseconds: 800),
-                        child: const AppText(
-                          text: "Description",
-                          size: 21,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(height: size.height * 0.01),
-                      FadeInUp(
-                        delay: const Duration(milliseconds: 900),
-                        child: AppText(
-                          text:current.description,
-                          size: 13,
-                          color: Colors.black54,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                      FadeInUp(
-                        delay: const Duration(milliseconds: 1000),
-                        child: Padding(
-                          padding: EdgeInsets.only(top: size.height * 0.05),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                  width: size.width * 0.14,
-                                  height: size.height * 0.06,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Colors.deepPurpleAccent,
-                                          width: 2),
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(
-                                      Icons.favorite_border,
-                                      color: Colors.deepPurpleAccent,
-                                    ),
-                                  )),
-                              MaterialButton(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                minWidth: size.width * 0.6,
-                                height: size.height * 0.06,
-                                color: Colors.deepPurpleAccent,
-                                onPressed: () {
-  final bookingController = Get.put(BookingController());
-  bookingController.addTrip(current);
-  Get.to(() => BookedTripsPage());
-},
-
-                                child: const AppText(
-                                  text: "Book Trip Now",
-                                  size: 16,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w300,
                                 ),
                               ),
-                            ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                        SizedBox(height: height * 0.03),
+                        FadeInUp(
+                          delay: const Duration(milliseconds: 800),
+                          child: AppText(
+                            text: current.description,
+                            size: width * 0.045,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        FadeInUp(
+                          delay: const Duration(milliseconds: 1000),
+                          child: Padding(
+                            padding: EdgeInsets.only(top: height * 0.04),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Container(
+                                  width: width * 0.14,
+                                  height: height * 0.06,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.deepPurpleAccent,
+                                        width: 2),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(Icons.favorite_border,
+                                        color: Colors.deepPurpleAccent),
+                                  ),
+                                ),
+                                MaterialButton(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  minWidth: width * 0.6,
+                                  height: height * 0.06,
+                                  color: Colors.deepPurpleAccent,
+                                  onPressed: () {
+                                    bookingController.addTrip(current);
+                                    Get.to(() => BookedTripsPage());
+                                  },
+                                  child: AppText(
+                                    text: "65".tr,
+                                    size: 16,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: height * 0.05),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ],
           ),
-        ));
+        );
+      },
+    );
   }
 
   AppBar _buildAppBar() {
@@ -308,9 +330,7 @@ class _DetailsPageState extends State<DetailsPage> {
       backgroundColor: Colors.transparent,
       elevation: 0,
       leading: IconButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
+        onPressed: () => Navigator.pop(context),
         icon: const Icon(Icons.arrow_back_ios),
       ),
       actions: [

@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../reuseable_text.dart';
 
@@ -13,11 +14,11 @@ class Tophomepage extends StatelessWidget {
         Container(
           child: FadeInUp(
             delay: const Duration(milliseconds: 300),
-            child: const AppText(
-              text: "تطبيق مناسك وجهتك للحج",
-              size: 20,
-              color: Colors.black,
-              fontWeight: FontWeight.w500,
+            child:  AppText(
+              text: "11".tr,
+              size: 18,
+              //color: Colors.black,
+              fontWeight: FontWeight.w200,
             ),
           ),
         ),

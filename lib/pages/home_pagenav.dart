@@ -1,4 +1,4 @@
-import 'package:animate_do/animate_do.dart';
+
 import 'package:circle_nav_bar/circle_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,24 +6,14 @@ import 'package:project/Controller/Controllernavbottom.dart';
 import 'package:project/pages/Singup.dart';
 import 'package:project/pages/UserInfo.dart';
 
-import 'package:project/pages/details_page.dart';
-import 'package:project/pages/homeScreen.dart';
-import 'package:project/pages/listDownSearch.dart';
 import 'package:project/pages/makkapage.dart';
 import 'package:project/pages/rehla.dart';
-import 'package:project/widget/Drawer/DrawerItems.dart';
 
-import 'package:project/widget/homepage/searchhomepage.dart';
 
 import '../Controller/HomeController.dart';
-import '../models/people_also_like_model.dart';
 
-import '../models/tab_bar_model.dart';
-import '../widget/homepage/tabView.dart';
-import '../widget/homepage/toppage.dart';
-import '../widget/homepage/underFinfMore.dart';
-import '../widget/reuseable_text.dart';
-import '../widget/reuseabale_middle_app_text.dart';
+
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

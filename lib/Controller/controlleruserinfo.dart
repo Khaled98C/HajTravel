@@ -11,6 +11,7 @@ class ControllerUserInfo extends GetxController {
   String gender = "غير محدد";
   String birthday = "";
   String age = "غير محسوب";
+  String country="Syrian";
 
   @override
   void onInit() {
@@ -23,6 +24,7 @@ class ControllerUserInfo extends GetxController {
     email = myServices.sharedPref.getString("email") ?? "غير متوفر";
     gender = myServices.sharedPref.getString("gender") ?? "غير محدد";
     birthday = myServices.sharedPref.getString("birthday") ?? "";
+    country = myServices.sharedPref.getString("country") ?? "";
 
     debugPrint("🟢 username: $username");
     debugPrint("🟢 email: $email");
@@ -55,13 +57,19 @@ class ControllerUserInfo extends GetxController {
   }
 
   void logout() async {
-    await myServices.sharedPref.clear(); // 🔥 حذف كل شيء
+    // 🔥 حذف كل شيء
+    await myServices.sharedPref.remove("current_user"); 
+myServices.sharedPref.remove("gender");
+myServices.sharedPref.remove("email");
+myServices.sharedPref.remove("birthday");
+myServices.sharedPref.remove("country");
 
     username = "غير معروف";
     email = "غير متوفر";
     gender = "غير محدد";
     birthday = "";
     age = "غير محسوب";
+    
 
     update();
 

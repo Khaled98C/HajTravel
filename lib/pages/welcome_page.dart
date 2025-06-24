@@ -313,7 +313,6 @@ class _WelcomePageState extends State<WelcomePage> {
                                         child: AppText(
                                           text: current.title,
                                           size: isWeb ? 32 : 20,
-                                          color: Colors.red,
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -323,7 +322,6 @@ class _WelcomePageState extends State<WelcomePage> {
                                         child: AppText(
                                           text: current.subTitle,
                                           size: isWeb ? 20 : 11,
-                                          color: Colors.black,
                                           fontWeight: FontWeight.w300,
                                         ),
                                       ),
@@ -341,7 +339,6 @@ class _WelcomePageState extends State<WelcomePage> {
                                             child: AppText(
                                               text: current.description,
                                               size: isWeb ? 18 : 11,
-                                              color: Colors.grey,
                                               fontWeight: FontWeight.w200,
                                             ),
                                           ),
@@ -369,7 +366,6 @@ class _WelcomePageState extends State<WelcomePage> {
                                             child: AppText(
                                               text: "Let's Go",
                                               size: isWeb ? 20 : 16,
-                                              color: Colors.white,
                                               fontWeight: FontWeight.w300,
                                             ),
                                           ),
